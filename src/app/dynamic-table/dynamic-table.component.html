@@ -1,0 +1,41 @@
+<form [formGroup]="userForm">
+  <table class="table">
+    <thead>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>DOB</th>
+    </thead>
+    <tbody formArrayName="users" *ngFor="let group of getFormData.controls; let i=index">
+      <tr [formGroupName]="i">
+        <td class="form-group">
+          <input type="text" class="form-control" formControlName="name" placeholder="name">
+          <span class="text-danger" *ngIf="group.get('name').touched && group.get('name').invalid">name is required</span>
+        </td>
+        <td class="form-group">
+          <input type="text" class="form-control" formControlName="email" placeholder="email">
+          <span class="text-danger" *ngIf="group.get('email').touched && group.get('email')?.hasError('required')">email required</span>
+          <span class="text-danger" *ngIf="group.get('email').touched && !group.get('email').hasError('required') && group.get('email').hasError('validEmail')">Please enter correct email domain </span>
+        </td>
+        <td class="form-group">
+          <input type="text" class="form-control" formControlName="mobNumber" placeholder="mobile number">
+          <span class="text-danger" *ngIf="group.get('mobNumber').touched && group.get('mobNumber')?.hasError('required')">mobile Number required</span>
+        </td>
+        <td>
+          <input formControlName="dob" matInput [matDatepicker]="picker" placeholder="Choose a date">
+          <span class="text-danger" *ngIf="group.get('dob').touched && group.get('dob').invalid">Please enter valid date of birth </span>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </td>
+        <td>
+          <button (click)="remove(i)" class="btn btn-primary mr-5">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+<button (click)="addUser()" class="btn btn-primary mr-5">Add new</button>
+<button (click)="save()" [disabled]="userForm.invalid" class="btn btn-primary">Save</button>
+<div>
+  <!-- {{userForm.value | json}} -->
+</div>
