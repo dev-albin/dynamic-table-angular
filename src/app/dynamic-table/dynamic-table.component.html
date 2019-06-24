@@ -1,10 +1,8 @@
 <form [formGroup]="userForm">
   <table class="table">
     <thead>
-      <th *n>Name</th>
-      <th>Email</th>
-      <th>Phone Number</th>
-      <th>DOB</th>
+      <th *ngFor="let header of tableHeaders">{{header}}</th>
+     
     </thead>
     <tbody formArrayName="users" *ngFor="let group of getFormData.controls; let i=index">
       <tr [formGroupName]="i">

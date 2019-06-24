@@ -14,6 +14,12 @@ export class DynamicTableComponent implements OnInit {
       mobNumber: 8089367006,
       dob: new Date()
     }];
+    tableHeaders: string[] = [
+      'Name',
+      'Email',
+      'Mobile',
+      'DOB'
+    ];
     userForm: FormGroup;
 
   constructor(private fb: FormBuilder) { }
